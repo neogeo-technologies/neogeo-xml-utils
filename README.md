@@ -49,6 +49,9 @@ Options:
 
 *   __tree__: the XML element tree.
 
+#### methods
+
+*   __tostring()__ -> __xml.etree.ElementTree.tostring__
 
 #### Example
 
@@ -56,6 +59,6 @@ Options:
 >>> from neogeo_xml_utils import ObjToXML
 >>> obj = {'a': {'b': ['0', '1', '2', {'c': {'$': '3', '@foo': 'bar'}}, {'c': {'$': '4', '@foo': 'bar'}}, {'c': {'$': '5', '@foo': 'bar'}}]}}
 >>> ox = ObjToXML(obj)
->>> ox.dump()
+>>> ox.tostring()
 <a><b>0</b><b>1</b><b>2</b><b><c foo="bar">3</c></b><b><c foo="bar">4</c></b><b><c foo="bar">5</c></b></a>
 ```
