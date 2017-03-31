@@ -31,7 +31,7 @@ class XMLToObj:
                 self.__cur = None
                 self.__attr = None
                 self.__pos = 0
-                self.__path = OrderedDict()
+                self.__path = {}
                 self.__data = []
                 self.__namespaces = {}
                 self.__count_ns = 0
@@ -103,13 +103,11 @@ class XMLToObj:
 
                     for key, subtree in tree.items():
                         if key == cur:
-                            if not subtree:
+                            if not subtree and isinstance(tree[key], OrderedDict):
                                 tree[key] = txt
-                                break
-
+                                continue
                             if isinstance(subtree, dict):
                                 subtree[self.text_tag] = txt
-
                             if isinstance(subtree, list):
                                 if isinstance(subtree[-1], dict):
                                     if not subtree[-1]:
@@ -123,9 +121,7 @@ class XMLToObj:
                         if isinstance(subtree, dict):
                             browse_n_update(subtree, cur, txt)
 
-                if len(self.__data) > 0:
-                    browse_n_update(
-                            self.__obj, self.__cur, ''.join(self.__data))
+                browse_n_update(self.__obj, self.__cur, ''.join(self.__data))
 
                 self.__data = []
                 self.__pos -= 1
