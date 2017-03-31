@@ -105,9 +105,12 @@ class XMLToObj:
                         if key == cur:
                             if not subtree and isinstance(tree[key], OrderedDict):
                                 tree[key] = txt
-                                continue
-                            if isinstance(subtree, dict):
+                                break
+                            if isinstance(subtree, OrderedDict):
+                                if self.text_tag in subtree:
+                                    continue
                                 subtree[self.text_tag] = txt
+                                break
                             if isinstance(subtree, list):
                                 if isinstance(subtree[-1], dict):
                                     if not subtree[-1]:
